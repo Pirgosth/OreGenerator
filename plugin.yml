@@ -1,0 +1,32 @@
+name: OreGenerator
+main: com.pirgosth.oregenerator.Load
+version: 1.0
+api-version: 1.15
+softdepend: [Multiverse-Core]
+command-complete: true
+author: Pirgosth
+commands:
+  og:
+    description: OreGenerator config command
+    usage: /<command> [disabled | enable | list | reload]
+permissions:
+  og.disable:
+    description: Allows disable command
+    default: op
+  og.enable:
+    description: Allows enable command
+    default: op
+  og.list:
+    description: Allows list command
+    default: op
+  og.reload:
+    description: Allows reload command
+    default: op
+  og.*:
+    description: Wildcard permission
+    default: op
+    children:
+      og.enable: true
+      og.disable: true
+      og.list: true
+      og.reload: true
