@@ -23,11 +23,11 @@ public class AutoCompletion implements TabCompleter{
 			switch(args[0].toLowerCase()) {
 				case "enable":
 					ArrayList<String> worlds = Utility.getWorldNames();
-					worlds.removeAll(Config.getActiveWorlds());
+					worlds.removeAll(Load.config.getActiveWorlds());
 					StringUtil.copyPartialMatches(args[1], worlds, completions);
 					break;
 				case "disable":
-					StringUtil.copyPartialMatches(args[1], Config.getActiveWorlds(), completions);
+					StringUtil.copyPartialMatches(args[1], Load.config.getActiveWorlds(), completions);
 					break;
 				default:
 					break;

@@ -1,24 +1,27 @@
 package com.pirgosth.oregenerator;
 
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Load extends JavaPlugin{
-	public static FileConfiguration config;
+	public static Config config;
+	
+	public Load() {
+		config = new Config(this);
+	}
 	
 	@Override
 	public void onEnable() {
 		Bukkit.getConsoleSender().sendMessage("Plugin is loading ...");
-		Config.load(this);
-		getCommand("og").setExecutor(new Commands(this));
+		config.load();
+		getCommand("og").setExecutor(new Commands());
 		getCommand("og").setTabCompleter(new AutoCompletion());
-		getServer().getPluginManager().registerEvents(new EventListener(this), this);
+		getServer().getPluginManager().registerEvents(new EventListener(), this);
 	}
 	
 	@Override
 	public void onDisable() {
 		Bukkit.getConsoleSender().sendMessage("Plugin is shutting down ...");
-		Config.save(this);
+		config.save();
 	}
 }

@@ -6,21 +6,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class Utility {
-	public static float Sum(ArrayList<Float> l) {
-		float result = 0;
-		for(float x : l) {
+	public static double Sum(ArrayList<Double> l) {
+		double result = 0;
+		for(double x : l) {
 			result += x;
 		}
 		return result;
 	}
 	
-	public static boolean IsBetween(ArrayList<Float> l, float a, float b) {
-		for(float x : l) {
-			if(x < a || x > b) {
-				return false;
-			}
-		}
-		return true;
+	public static boolean IsBetween(double l, double a, double b) {
+		return(l >= a && l <= b);
 	}
 	
 	public static ArrayList<String> getWorldNames(){

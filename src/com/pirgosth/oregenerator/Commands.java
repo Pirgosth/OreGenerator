@@ -1,20 +1,16 @@
 package com.pirgosth.oregenerator;
 
+import java.util.logging.Level;
+
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class Commands implements CommandExecutor{
-	private JavaPlugin plugin;
-	
-	public Commands(JavaPlugin plugin) {
-		this.plugin = plugin;
-	}
-	
 	private boolean reload(CommandSender sender, String[] args) {
 		if(sender instanceof Player && !sender.hasPermission("og.reload")) {
 			sender.sendMessage(ChatColor.RED + "Missing permission: og.reload");
@@ -24,8 +20,15 @@ public class Commands implements CommandExecutor{
 			sender.sendMessage(ChatColor.RED + "Too many arguments !");
 			return true;
 		}
-		Config.reload(plugin);
-		sender.sendMessage(ChatColor.DARK_GREEN + "[OreGenerator]: Reloaded successfully !");
+		try {
+			Load.config.reload();
+			EventListener.random.reload();
+			sender.sendMessage(ChatColor.DARK_GREEN + "[OreGenerator]: Reloaded successfully !");
+		}
+		catch(Exception e) {
+			Bukkit.getLogger().log(Level.WARNING, e.toString());
+			sender.sendMessage(ChatColor.RED + "[OreGenerator]: Reload performed with error: " + e.toString());
+		}
 		return true;
 	}
 	
@@ -35,20 +38,22 @@ public class Commands implements CommandExecutor{
 				sender.sendMessage(ChatColor.DARK_RED + "You must specify an existing world name !");
 				return true;
 			}
-			if(Config.addActiveWorld(world)) {
+			if(Load.config.addActiveWorld(world)) {
 				sender.sendMessage(ChatColor.DARK_GREEN + "World " + world + " enabled successfully");
+				Load.config.save();
 			}
 			else {
 				sender.sendMessage(ChatColor.DARK_AQUA + "World " + world + " is already enabled");
 			}
 		}
 		else {
-			if(!Config.getActiveWorlds().contains((world))) {
+			if(!Load.config.getActiveWorlds().contains((world))) {
 				sender.sendMessage(ChatColor.DARK_RED + "You must specify an active world name !");
 				return true;
 			}
-			if(Config.delActiveWorld(world)) {
+			if(Load.config.delActiveWorld(world)) {
 				sender.sendMessage(ChatColor.DARK_GREEN + "World " + world + " disabled successfully");
+				Load.config.save();
 			}
 			else {
 				sender.sendMessage(ChatColor.DARK_AQUA + "World " + world + " is already disabled");
@@ -96,7 +101,7 @@ public class Commands implements CommandExecutor{
 			sender.sendMessage(ChatColor.RED + "Missing permission: og.list");
 			return true;
 		}
-		sender.sendMessage(ChatColor.DARK_AQUA + "Active worlds: " + Config.getActiveWorlds().toString());
+		sender.sendMessage(ChatColor.DARK_AQUA + "Active worlds: " + Load.config.getActiveWorlds().toString());
 		return true;
 	}
 

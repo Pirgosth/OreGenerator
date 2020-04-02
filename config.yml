@@ -1,0 +1,27 @@
+debug: false
+enabled-worlds: ""
+blocks:
+  default:
+    material: COBBLESTONE
+    probability: 0.788
+  iron:
+    material: IRON_ORE
+    probability: 0.1435
+  gold:
+    material: GOLD_ORE
+    probability: 0.015
+  redstone:
+    material: REDSTONE_ORE
+    probability: 0.03
+  lapis:
+    material: LAPIS_ORE
+    probability: 0.012
+  diamond:
+    material: DIAMOND_ORE
+    probability: 0.01
+  emerald:
+    material: EMERALD_ORE
+    probability: 0.001
+  emerald-block:
+    material: EMERALD_BLOCK
+    probability: 5.0E-4
