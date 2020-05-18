@@ -1,2 +1,5 @@
-Builds
 bin
+target/
+.settings
+.classpath
+.project

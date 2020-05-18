@@ -1,4 +1,4 @@
-package com.pirgosth.oregenerator;
+package io.github.pirgosth.oregenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,12 +22,12 @@ public class AutoCompletion implements TabCompleter{
 			final List<String> completions = new ArrayList<>();
 			switch(args[0].toLowerCase()) {
 				case "enable":
-					ArrayList<String> worlds = Utility.getWorldNames();
-					worlds.removeAll(Load.config.getActiveWorlds());
+					ArrayList<String> worlds = Utils.getWorldNames();
+					worlds.removeAll(OreGenerator.getMainConfig().getActiveWorlds());
 					StringUtil.copyPartialMatches(args[1], worlds, completions);
 					break;
 				case "disable":
-					StringUtil.copyPartialMatches(args[1], Load.config.getActiveWorlds(), completions);
+					StringUtil.copyPartialMatches(args[1], OreGenerator.getMainConfig().getActiveWorlds(), completions);
 					break;
 				default:
 					break;

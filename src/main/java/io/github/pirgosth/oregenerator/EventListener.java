@@ -1,4 +1,4 @@
-package com.pirgosth.oregenerator;
+package io.github.pirgosth.oregenerator;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -15,7 +15,7 @@ public class EventListener implements Listener{
 	@EventHandler
 	public void onBlockFormEvent(BlockFormEvent event) {
 		if(event.getNewState().getType() == Material.COBBLESTONE || event.getNewState().getType() == Material.STONE) {
-			if(!Load.config.getActiveWorlds().contains(event.getBlock().getWorld().getName())) {
+			if(!OreGenerator.getMainConfig().getActiveWorlds().contains(event.getBlock().getWorld().getName())) {
 				return;
 			}
 			event.setCancelled(true);

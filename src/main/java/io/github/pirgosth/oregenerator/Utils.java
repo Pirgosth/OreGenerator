@@ -1,11 +1,11 @@
-package com.pirgosth.oregenerator;
+package io.github.pirgosth.oregenerator;
 
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 
-public class Utility {
+public class Utils {
 	public static double Sum(ArrayList<Double> l) {
 		double result = 0;
 		for(double x : l) {
