@@ -1,8 +1,8 @@
 package io.github.pirgosth.oregenerator;
 
-import org.bukkit.plugin.java.JavaPlugin;
-
+import io.github.pirgosth.liberty.core.LibertyCore;
 import lombok.Getter;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class OreGenerator extends JavaPlugin{
 	@Getter
@@ -15,8 +15,7 @@ public class OreGenerator extends JavaPlugin{
 		instance = this;
 		mainConfig = new Config();
 		mainConfig.load();
-		getCommand("og").setExecutor(new Commands());
-		getCommand("og").setTabCompleter(new AutoCompletion());
+		LibertyCore.getInstance().getCommandRegister().register(this, new OreCommands());
 		getServer().getPluginManager().registerEvents(new EventListener(), this);
 	}
 }
