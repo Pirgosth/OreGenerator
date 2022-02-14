@@ -32,4 +32,8 @@ public class WorldConfig extends CustomConfig{
 			}
 		}
 	}
+
+	public boolean isNetherGenerator() {
+		return config.getBoolean("nether-mode", false);
+	}
 }

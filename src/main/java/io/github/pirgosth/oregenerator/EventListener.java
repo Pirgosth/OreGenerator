@@ -1,7 +1,6 @@
 package io.github.pirgosth.oregenerator;
 
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFormEvent;
@@ -15,13 +14,21 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void onBlockFormEvent(BlockFormEvent event) {
-        if (event.getNewState().getType() == Material.COBBLESTONE || event.getNewState().getType() == Material.STONE) {
-            if (!OreGenerator.getMainConfig().getActiveWorlds().contains(event.getBlock().getWorld().getName())) {
+
+        if (event.getNewState().getType() == Material.BASALT) {
+            String worldName = event.getBlock().getWorld().getName();
+            if (!OreGenerator.getMainConfig().getActiveWorlds().contains(worldName) || !OreGenerator.getMainConfig().isNetherGenerator(worldName)) {
                 return;
             }
-            event.setCancelled(true);
-            event.getBlock().setType(random.RandomOre(event));
-            event.getBlock().getWorld().playSound(event.getBlock().getLocation(), Sound.BLOCK_LAVA_EXTINGUISH, 1.0f, 2.0f);
+            event.getNewState().setType(random.RandomOre(event));
+        }
+
+        if (event.getNewState().getType() == Material.COBBLESTONE || event.getNewState().getType() == Material.STONE) {
+            String worldName = event.getBlock().getWorld().getName();
+            if (!OreGenerator.getMainConfig().getActiveWorlds().contains(worldName) || OreGenerator.getMainConfig().isNetherGenerator(worldName)) {
+                return;
+            }
+            event.getNewState().setType(random.RandomOre(event, event.getBlock().getY() < 0));
         }
     }
 }

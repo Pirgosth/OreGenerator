@@ -35,7 +35,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>OreGenerator</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		<defaultGoal>clean install</defaultGoal>
 	</build>
 	<properties>

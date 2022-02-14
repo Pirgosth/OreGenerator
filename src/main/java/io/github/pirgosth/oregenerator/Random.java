@@ -7,11 +7,11 @@ import org.bukkit.Material;
 import org.bukkit.event.block.BlockFormEvent;
 
 public class Random {
-    public Material RandomOre(BlockFormEvent event) {
+    public Material RandomOre(BlockFormEvent event, boolean deep) {
         String worldName = event.getBlock().getWorld().getName();
         ArrayList<Material> materials = OreGenerator.getMainConfig().getMaterials(worldName);
         ArrayList<Double> probabilities = OreGenerator.getMainConfig().getProbabilities(worldName);
-        materials.set(0, event.getNewState().getType());
+        materials.set(0, deep ? Material.DEEPSLATE : event.getNewState().getType());
         double r = Math.random();
         double c = 0;
         for (int i = 0; i < materials.size(); i++) {
@@ -27,5 +27,9 @@ public class Random {
             Bukkit.getConsoleSender().sendMessage("Random value: " + r + " invalid material");
         }
         return Material.COBBLESTONE;
+    }
+
+    public Material RandomOre(BlockFormEvent event) {
+        return this.RandomOre(event, false);
     }
 }

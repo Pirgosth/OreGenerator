@@ -147,8 +147,8 @@ public class Config {
             }
             worldProbabilities.add(probability);
         }
-        double pSum = Utils.Sum(worldProbabilities);
-        if (pSum != 1.0f) {
+        int pSum = Utils.Sum(worldProbabilities);
+        if (pSum != 1) {
             throw new Exception("The sum of probabilities does not equal 1 (" + pSum + ")");
         }
         return worldProbabilities;
@@ -160,5 +160,9 @@ public class Config {
 
     public ArrayList<Double> getProbabilities(String world) {
         return probabilities.get(world);
+    }
+
+    public boolean isNetherGenerator(String worldName) {
+        return this.activeWorlds.get(worldName).isNetherGenerator();
     }
 }

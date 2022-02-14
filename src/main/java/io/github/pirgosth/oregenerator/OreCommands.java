@@ -31,6 +31,7 @@ public class OreCommands implements ICommandListener {
 
         if (!Config.doesWorldExist(worldName)) {
             ChatUtils.sendColorMessage(params.sender, "&4You must specify an existing world name !");
+            return true;
         }
         if (OreGenerator.getMainConfig().addActiveWorld(worldName)) {
             ChatUtils.sendColorMessage(params.sender, String.format("&7World &a%s &7enabled successfully", worldName));
@@ -51,6 +52,7 @@ public class OreCommands implements ICommandListener {
         }
         if (!OreGenerator.getMainConfig().getActiveWorlds().contains(worldName)) {
             ChatUtils.sendColorMessage(params.sender, "&4You must specify an active world name !");
+            return true;
         }
         if (OreGenerator.getMainConfig().delActiveWorld(worldName)) {
             ChatUtils.sendColorMessage(params.sender, String.format("&7World &a%s &7disabled successfully", worldName));
